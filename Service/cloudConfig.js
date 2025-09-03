@@ -1,19 +1,21 @@
 const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
 
-const imageUpload = multer({
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.cloud_API_KEY,
+  api_secret: process.env.cloud_Secret_Nmae,
+});
 
-  dest: "uploads/",
-  fileFilter: (req, file, cb) => {
-
-    const allowedTypes = /jpeg|jpg|png|webp/;
-    const ext = allowedTypes.test(file.originalname.toLowerCase());
-    const mime = allowedTypes.test(file.mimetype);
-
-    if (ext && mime) {
-      cb(null, true); 
-    } else {
-      cb(new Error("Only .jpg, .jpeg, .png, .webp formats allowed!"), false);
-    }
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "uploads",
+    allowed_formats: ["jpg", "png", "jpeg"],
   },
 });
-module.exports=imageUpload;
+
+const upload = multer({ storage: storage });
+
+module.exports = upload;

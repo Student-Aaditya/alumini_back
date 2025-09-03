@@ -2,7 +2,7 @@ const User = require("../Model/user.models.js");
 const Sms = require("../Service/twillio.js");
 const sendEmail = require("../Service/email.js");
 const  imageUpload  = require("../Service/cloudConfig.js");
-
+const upload=require("../Service/cloudConfig.js");
 
 const controller = {
     signUp: async (req, res) => {
@@ -29,14 +29,9 @@ const controller = {
         res.status(200).json({ msg: "data send successful" });
     },
     uploadImage: async (req, res) => {
-        try {
-            const result = await imageUpload(req.file.path, "images", "image");
-            res.json({ url: result.secure_url });
-        } catch (err) {
-            res.status(500).json({ error: err.message });
-        }
+      res.json({ url: req.file.path });
 
-    }
+        }
 }
 
 
