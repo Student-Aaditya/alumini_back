@@ -9,7 +9,9 @@ const passport=require("passport");
 const passportLocal=require("passport-local");
 const passportLocalMongoose=require("passport-local-mongoose");
 const session=require("express-session");
-const User=require("./Model/User.js");
+const User=require("./Model/user.models.js");
+const helmet=require("helmet");
+const morgan=require("morgan");
 
 try{
     main()
@@ -17,6 +19,8 @@ try{
     console.log(err);
 }
 
+app.use(morgan("dev"));
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(session({

@@ -1,4 +1,4 @@
-const User = require("../Model/User.js");
+const User = require("../Model/user.models.js");
 const Sms = require("../Service/twillio.js");
 const sendEmail = require("../Service/email.js");
 const  imageUpload  = require("../Service/cloudConfig.js");
