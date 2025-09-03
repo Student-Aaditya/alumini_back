@@ -8,7 +8,7 @@ main().then(()=>{
 })
 
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/SIH");
+    await mongoose.connect(process.env.MONGO_URL);
 }
 
 module.exports=main;
